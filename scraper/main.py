@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 from feeds import fetch_and_parse_feeds
 from keywords import is_relevant
 from llm import generate_summary_and_tags
-from supabase_client import get_supabase_client, get_existing_source_ids, insert_post
+from supabase_client import get_existing_source_ids, insert_post
 
 def main():
     # Load env vars for local development
@@ -11,10 +11,9 @@ def main():
     
     print("Starting CPE Veille scraper...")
     
-    # Initialize Supabase
+    # Initialize connection check
     try:
-        supabase = get_supabase_client()
-        existing_ids = get_existing_source_ids(supabase)
+        existing_ids = get_existing_source_ids()
         print(f"Found {len(existing_ids)} existing posts in database.")
     except Exception as e:
         print(f"Failed to initialize database: {e}")
@@ -55,7 +54,7 @@ def main():
             post_data["published_at"] = item["published_at"]
             
         # Insert into DB
-        if insert_post(supabase, post_data):
+        if insert_post(post_data):
             print(f"Successfully inserted: {item['title']}")
             new_posts_count += 1
             existing_ids.add(item["source_id"]) # Prevent duplicate in same run
