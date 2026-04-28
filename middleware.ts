@@ -31,16 +31,12 @@ export async function middleware(request: NextRequest) {
 
   // Protect the bookmarks route
   if (!user && request.nextUrl.pathname.startsWith('/bookmarks')) {
-    const url = request.nextUrl.clone();
-    url.pathname = '/auth/login';
-    return NextResponse.redirect(url);
+    return NextResponse.redirect(new URL('/auth/login', request.url));
   }
 
   // Redirect logged-in users away from auth pages
   if (user && request.nextUrl.pathname.startsWith('/auth/')) {
-    const url = request.nextUrl.clone();
-    url.pathname = '/';
-    return NextResponse.redirect(url);
+    return NextResponse.redirect(new URL('/', request.url));
   }
 
   return supabaseResponse;
