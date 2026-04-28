@@ -35,10 +35,11 @@ export default function BookmarksPage() {
           .order('created_at', { ascending: false });
 
         if (!error && data) {
-          // Flatten the response since post data is nested
-          const validPosts = data
+          // Flatten the response since post data is nested (can be inferred as an array by Supabase JS)
+          const validPosts = (data as any[])
             .map((b) => b.posts)
-            .filter((p): p is Post => p !== null);
+            .flat()
+            .filter((p) => p !== null) as Post[];
           setPosts(validPosts);
         }
         setLoading(false);
