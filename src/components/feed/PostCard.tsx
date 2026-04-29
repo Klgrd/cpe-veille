@@ -38,7 +38,7 @@ export function PostCard({ post, isBookmarked, onBookmarkToggle, userId }: PostC
             </p>
             <time
               dateTime={post.published_at}
-              className="text-xs text-slate-500"
+              className="text-xs text-[var(--text-muted)]"
             >
               {formatDate(post.published_at)}
             </time>
