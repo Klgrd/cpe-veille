@@ -35,16 +35,13 @@ def get_existing_source_ids(client=None) -> set:
         print(f"Error fetching existing IDs: {e}")
         return set()
 
-def insert_post(post_data: dict) -> bool:
-    """Inserts a single post into the database."""
+def insert_post(post_data: dict) -> tuple[bool, str]:
+    """Inserts a single post into the database. Returns (success, error_message)."""
     try:
         url = f"{get_supabase_url()}/rest/v1/posts"
         response = requests.post(url, headers=get_headers(), json=post_data)
-        response.raise_for_status()
-        return True
+        if response.status_code >= 400:
+            return False, f"HTTP {response.status_code}: {response.text}"
+        return True, ""
     except Exception as e:
-        print(f"Error inserting post {post_data.get('title')}: {e}")
-        # Print response text if available for debugging
-        if hasattr(e, 'response') and e.response is not None:
-            print(f"Response details: {e.response.text}")
-        return False
+        return False, str(e)

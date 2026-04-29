@@ -92,13 +92,15 @@ def main():
             post_data["published_at"] = item["published_at"]
             
         # Insert into DB
-        if insert_post(post_data):
+        success, error_msg = insert_post(post_data)
+        if success:
             print(f"Successfully inserted: {item['title']}")
             new_posts_count += 1
             added_items.append(item)
             existing_ids.add(item["source_id"]) # Prevent duplicate in same run
         else:
-            print(f"FAILED to insert: {item['title']}")
+            print(f"FAILED to insert: {item['title']} - {error_msg}")
+            item["error"] = error_msg
             failed_items.append(item)
             
     print(f"\nScraping complete. Added {new_posts_count} new posts.")
@@ -131,8 +133,11 @@ def main():
                     
                 if failed_items:
                     f.write("#### ❌ Articles en erreur (Échec insertion) :\n")
-                    for it in failed_items:
-                        f.write(f"- {it['title']} ({it['source_name']})\n")
+                    # Show the first few errors specifically
+                    for it in failed_items[:10]:
+                        f.write(f"- {it['title']} : `{it.get('error')}`\n")
+                    if len(failed_items) > 10:
+                        f.write(f"- ... et {len(failed_items) - 10} autres articles.\n")
                     f.write("\n")
 
                 if ignored_items:
