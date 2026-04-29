@@ -15,6 +15,14 @@ FEEDS = [
     {
         "name": "Vie Publique",
         "url": "https://www.vie-publique.fr/rss",
+    },
+    {
+        "name": "Sénat (Rapports)",
+        "url": "https://www.senat.fr/rss/rapports.xml",
+    },
+    {
+        "name": "SNES-FSU (Syndicat Éducation)",
+        "url": "https://www.snes.edu/feed/",
     }
 ]
 
