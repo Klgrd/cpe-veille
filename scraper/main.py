@@ -69,8 +69,8 @@ def main():
                 ignored_items.append(item)
                 continue
                 
-            if faits_divers_count >= 1:
-                print(f"Ignoré: Quota de 1 fait divers atteint ({item['title']})")
+            if faits_divers_count >= 3:
+                print(f"Ignoré: Quota de 3 faits divers atteint ({item['title']})")
                 ignored_items.append(item)
                 continue
                 

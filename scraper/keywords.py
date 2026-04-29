@@ -32,12 +32,13 @@ KEYWORDS = [
     # Pédagogie & Examens
     "pédagogie", "pedagogie", "pedagogiq", "baccalauréat", "baccalaureat", "brevet", "orientation", 
     "parcoursup", "réforme", "reforme", "certification", "pix", "évaluation", "evaluation", 
-    "niveau scolaire", "concours",
+    "niveau scolaire", "concours", "programme scolaire", "ressources", "ressource pédagogique",
     
     # Grands Enjeux, Débats et Acteurs de l'éducation
     "école", "ecole", "élève", "eleve", "enseignant", "professeur", "enseignement", 
     "éducation", "education", "système éducatif", "systeme educatif", "intelligence artificielle", 
-    "IA", "TDAH", "TSA", "troubles dys", "neuroatypique", "débat", "debat"
+    "IA", "TDAH", "TSA", "troubles dys", "neuroatypique", "débat", "debat", "culture", "lecture", 
+    "livre", "exposition", "histoire", "géographie"
 ]
 
 def is_relevant(title: str, description: str) -> bool:
