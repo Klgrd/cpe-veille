@@ -68,9 +68,8 @@ def main():
             
     print(f"\nScraping complete. Added {new_posts_count} new posts.")
 
-    # Send email notifications if new posts were added
-    if new_posts_count > 0:
-        send_notification_emails(added_items)
+    # Send daily briefing email to subscribers
+    send_notification_emails(added_items)
     
     # Write to GitHub Step Summary if running in GitHub Actions
     summary_file = os.environ.get("GITHUB_STEP_SUMMARY")
