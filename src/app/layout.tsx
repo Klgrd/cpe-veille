@@ -11,7 +11,7 @@ const plusJakarta = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: 'CPE Veille — Révisions Concours CPE',
+  title: 'CPE Veille',
   description:
     'Plateforme de veille informationnelle automatisée dédiée aux révisions du concours de Conseiller Principal d\'Éducation (CPE) en France. Retrouvez les derniers décrets, circulaires et actualités du BOEN, Légifrance et Café Pédagogique.',
   keywords: ['CPE', 'concours', 'Conseiller Principal d\'Éducation', 'BOEN', 'vie scolaire', 'révisions'],
