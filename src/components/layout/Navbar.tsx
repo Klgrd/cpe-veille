@@ -41,7 +41,7 @@ export function Navbar() {
               className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-semibold transition-all duration-200 ${
                 pathname === '/'
                   ? 'bg-neutral-900 dark:bg-white text-white dark:text-black'
-                  : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-black/5 dark:hover:bg-white/10'
+                  : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-neutral-200 dark:hover:bg-white/10'
               }`}
             >
               Feed
@@ -52,7 +52,7 @@ export function Navbar() {
                 className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-semibold transition-all duration-200 ${
                   pathname === '/bookmarks'
                     ? 'bg-neutral-900 dark:bg-white text-white dark:text-black'
-                    : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-black/5 dark:hover:bg-white/10'
+                    : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-neutral-200 dark:hover:bg-white/10'
                 }`}
               >
                 Favoris
@@ -65,7 +65,7 @@ export function Navbar() {
             {mounted && (
               <button
                 onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-                className="p-2 rounded-full text-[var(--text-secondary)] hover:bg-black/5 dark:hover:bg-white/10 transition-colors"
+                className="p-2 rounded-full text-[var(--text-secondary)] hover:bg-neutral-200 dark:hover:bg-white/10 hover:text-[var(--text-primary)] transition-colors"
                 aria-label="Toggle theme"
               >
                 {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
@@ -82,7 +82,7 @@ export function Navbar() {
                     </div>
                     <button
                       onClick={handleSignOut}
-                      className="flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium text-[var(--text-secondary)] border border-[var(--border)] hover:bg-black/5 dark:hover:bg-white/10 transition-all duration-200"
+                      className="flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium text-[var(--text-secondary)] border border-[var(--border)] hover:bg-neutral-200 dark:hover:bg-white/10 hover:text-[var(--text-primary)] transition-all duration-200"
                     >
                       <span className="hidden sm:block">Deconnexion</span>
                       <LogOut size={14} className="sm:hidden" />
@@ -91,7 +91,7 @@ export function Navbar() {
                 ) : (
                   <Link
                     href="/auth/login"
-                    className="flex items-center gap-1.5 px-5 py-2 rounded-full text-sm font-semibold text-[var(--text-primary)] border border-[var(--border)] hover:bg-black/5 dark:hover:bg-white/10 transition-all duration-200"
+                    className="flex items-center gap-1.5 px-5 py-2 rounded-full text-sm font-semibold text-[var(--text-primary)] border border-[var(--border)] hover:bg-neutral-200 dark:hover:bg-white/10 transition-all duration-200"
                   >
                     Connexion
                   </Link>
