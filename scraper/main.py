@@ -24,14 +24,19 @@ def main():
     print(f"Fetched {len(items)} items from RSS feeds.")
     
     new_posts_count = 0
+    added_items = []
+    ignored_items = []
+    skipped_existing = 0
     
     for item in items:
         # Check if already processed
         if item["source_id"] in existing_ids:
+            skipped_existing += 1
             continue
             
         # Check relevance based on keywords
         if not is_relevant(item["title"], item["description"]):
+            ignored_items.append(item)
             continue
             
         print(f"\nFound relevant new item: {item['title']}")
@@ -57,6 +62,7 @@ def main():
         if insert_post(post_data):
             print(f"Successfully inserted: {item['title']}")
             new_posts_count += 1
+            added_items.append(item)
             existing_ids.add(item["source_id"]) # Prevent duplicate in same run
             
     print(f"\nScraping complete. Added {new_posts_count} new posts.")
@@ -67,11 +73,26 @@ def main():
         try:
             with open(summary_file, "a", encoding="utf-8") as f:
                 f.write("### 🤖 Rapport de Scraping CPE Veille\n\n")
-                f.write(f"- **Articles analysés :** {len(items)}\n")
+                f.write(f"- **Total d'articles récupérés (RSS) :** {len(items)}\n")
+                f.write(f"- **Articles ignorés (déjà en base) :** {skipped_existing}\n")
+                
                 if new_posts_count == 0:
-                    f.write("- **Résultat :** 🛑 Aucun nouvel article pertinent détecté aujourd'hui.\n")
+                    f.write("- **Résultat :** 🛑 Aucun nouvel article pertinent détecté aujourd'hui.\n\n")
                 else:
-                    f.write(f"- **Résultat :** ✅ **{new_posts_count}** nouveaux articles ajoutés.\n")
+                    f.write(f"- **Résultat :** ✅ **{new_posts_count}** nouveaux articles ajoutés.\n\n")
+                    
+                if added_items:
+                    f.write("#### ✨ Nouveaux articles publiés :\n")
+                    for it in added_items:
+                        f.write(f"- [{it['title']}]({it['link']})\n")
+                    f.write("\n")
+                    
+                if ignored_items:
+                    f.write("<details><summary>🔍 Voir les articles analysés mais ignorés (hors-sujet)</summary>\n\n")
+                    for it in ignored_items:
+                        f.write(f"- [{it['title']}]({it['link']})\n")
+                    f.write("\n</details>\n")
+                    
         except Exception as e:
             print(f"Could not write to GitHub Step Summary: {e}")
 
