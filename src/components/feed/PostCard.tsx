@@ -54,7 +54,7 @@ export function PostCard({ post, isBookmarked, onBookmarkToggle, userId }: PostC
       </Link>
 
       {/* Description */}
-      <p className="text-sm text-[var(--text-muted)] leading-relaxed mb-4 line-clamp-3">
+      <p className="text-sm text-[var(--text-muted)] dark:text-slate-300 leading-relaxed mb-4 line-clamp-3">
         {post.description}
       </p>
 
