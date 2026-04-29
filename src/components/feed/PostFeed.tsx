@@ -16,43 +16,9 @@ export function PostFeed() {
   const { user } = useAuth();
   const { bookmarkedIds, toggle } = useBookmarks(user?.id ?? null);
 
-  const [posts, setPosts] = useState<Post[]>([
-    {
-      id: '1',
-      title: 'Circulaire de rentrée : priorités pour l\'année scolaire',
-      description: 'La présente circulaire fixe les priorités pour la prochaine rentrée scolaire. L\'accent est mis sur la lutte contre le harcèlement, l\'inclusion scolaire et le rôle central du CPE dans le pilotage de la politique éducative de l\'établissement.',
-      source_url: ['https://education.gouv.fr/bo'],
-      tags: ['Circulaire', 'Vie scolaire', 'Harcèlement'],
-      published_at: new Date().toISOString(),
-      created_at: new Date().toISOString(),
-      source_name: 'BOEN',
-      source_id: 'boen-123'
-    },
-    {
-      id: '2',
-      title: 'Décret relatif aux sanctions disciplinaires dans les établissements d\'enseignement du second degré',
-      description: 'Ce décret modifie l\'échelle des sanctions disciplinaires applicables aux élèves des collèges et lycées. Il introduit de nouvelles mesures de responsabilisation et précise les conditions de réunion du conseil de discipline.',
-      source_url: ['https://legifrance.gouv.fr'],
-      tags: ['Décret', 'Vie scolaire'],
-      published_at: new Date(Date.now() - 86400000).toISOString(),
-      created_at: new Date().toISOString(),
-      source_name: 'Légifrance',
-      source_id: 'legi-456'
-    },
-    {
-      id: '3',
-      title: 'Le rôle de l\'équipe éducative face au décrochage scolaire',
-      description: 'Analyse des nouvelles directives concernant le repérage et la prise en charge des élèves en risque de décrochage. Le CPE coordonne les actions de prévention en lien avec les partenaires (CIO, mission locale).',
-      source_url: ['https://cafepedagogique.net'],
-      tags: ['Actualité', 'Absentéisme', 'Orientation'],
-      published_at: new Date(Date.now() - 172800000).toISOString(),
-      created_at: new Date().toISOString(),
-      source_name: 'Café Pédagogique',
-      source_id: 'cafe-789'
-    }
-  ]);
-  const [loading, setLoading] = useState(false);
-  const [hasMore, setHasMore] = useState(false);
+  const [posts, setPosts] = useState<Post[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [hasMore, setHasMore] = useState(true);
   const [page, setPage] = useState(0);
   const loaderRef = useRef<HTMLDivElement>(null);
 
@@ -78,8 +44,8 @@ export function PostFeed() {
   );
 
   useEffect(() => {
-    // loadPosts(0);
-  }, []);
+    loadPosts(0);
+  }, [loadPosts]);
 
   // Infinite scroll observer
   useEffect(() => {
