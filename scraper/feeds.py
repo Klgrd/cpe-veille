@@ -1,5 +1,6 @@
 import feedparser
 import re
+import requests
 from typing import List, Dict, Any
 
 FEEDS = [
@@ -21,11 +22,20 @@ FEEDS = [
     }
 ]
 
+HEADERS = {
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+    'Accept': 'application/rss+xml, application/xml, text/xml, */*'
+}
+
 def fetch_and_parse_feeds() -> List[Dict[str, Any]]:
     items = []
     for feed_info in FEEDS:
         try:
-            feed = feedparser.parse(feed_info["url"])
+            # Use requests with a browser User-Agent to bypass government anti-bot filters
+            response = requests.get(feed_info["url"], headers=HEADERS, timeout=15)
+            response.raise_for_status()
+            
+            feed = feedparser.parse(response.content)
             for entry in feed.entries:
                 # Basic cleanup of title and description
                 title = entry.title if hasattr(entry, 'title') else ''
