@@ -5,20 +5,16 @@ from typing import List, Dict, Any
 
 FEEDS = [
     {
-        "name": "Légifrance",
-        "url": "https://www.legifrance.gouv.fr/api/rss",
-    },
-    {
-        "name": "BOEN",
-        "url": "https://www.education.gouv.fr/bo/rss.xml",
-    },
-    {
         "name": "Café Pédagogique",
         "url": "https://www.cafepedagogique.net/feed/",
     },
     {
-        "name": "MEN",
-        "url": "https://www.education.gouv.fr/rss.xml",
+        "name": "VousNousIls (L'e-mag de l'éducation)",
+        "url": "https://www.vousnousils.fr/feed",
+    },
+    {
+        "name": "Vie Publique",
+        "url": "https://www.vie-publique.fr/rss",
     }
 ]
 
