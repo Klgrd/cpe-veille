@@ -28,6 +28,7 @@ def main():
     added_items = []
     ignored_items = []
     skipped_existing = 0
+    faits_divers_count = 0
     
     for item in items:
         # Check if already processed
@@ -45,6 +46,20 @@ def main():
         # Generate summary and tags via LLM
         enriched_data = generate_summary_and_tags(item["title"], item["description"])
         
+        # Fait divers logic
+        if enriched_data.get("is_fait_divers"):
+            if not enriched_data.get("is_relevant_fait_divers"):
+                print(f"Ignoré: Fait divers non pertinent ({item['title']})")
+                ignored_items.append(item)
+                continue
+                
+            if faits_divers_count >= 1:
+                print(f"Ignoré: Quota de 1 fait divers atteint ({item['title']})")
+                ignored_items.append(item)
+                continue
+                
+            faits_divers_count += 1
+            
         # Prepare post object for database
         post_data = {
             "title": item["title"],
