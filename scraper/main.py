@@ -12,6 +12,21 @@ def main():
     
     print("Starting CPE Veille scraper...")
     
+    # Diagnostic des variables d'environnement
+    url = os.environ.get("SUPABASE_URL")
+    key = os.environ.get("SUPABASE_SERVICE_ROLE_KEY")
+    gemini = os.environ.get("GEMINI_API_KEY")
+    
+    missing = []
+    if not url: missing.append("SUPABASE_URL")
+    if not key: missing.append("SUPABASE_SERVICE_ROLE_KEY")
+    if not gemini: missing.append("GEMINI_API_KEY")
+    
+    if missing:
+        print(f"🛑 ERREUR CRITIQUE : Variables manquantes : {', '.join(missing)}")
+        print("Vérifiez vos secrets GitHub (Settings > Secrets and variables > Actions)")
+        return
+
     # Initialize connection check
     try:
         existing_ids = get_existing_source_ids()
@@ -73,6 +88,7 @@ def main():
         
         # Use published date from RSS if available, otherwise Supabase uses NOW()
         if item.get("published_at"):
+            # Ensure it's in a format Postgres likes (ISO)
             post_data["published_at"] = item["published_at"]
             
         # Insert into DB

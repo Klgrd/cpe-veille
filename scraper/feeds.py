@@ -90,13 +90,21 @@ def fetch_and_parse_feeds() -> List[Dict[str, Any]]:
                     # GUID or link as unique ID
                     source_id = entry.id if hasattr(entry, 'id') else link
     
+                    # Convert date to ISO format if possible
+                    pub_date = None
+                    if hasattr(entry, 'published_parsed') and entry.published_parsed:
+                        import time
+                        pub_date = datetime.fromtimestamp(time.mktime(entry.published_parsed)).isoformat()
+                    elif hasattr(entry, 'published'):
+                        pub_date = entry.published
+
                     items.append({
                         "source_name": feed_info["name"],
                         "title": title,
                         "description": re.sub(r'<[^>]+>', '', description), # Remove HTML tags
                         "link": link,
                         "source_id": source_id,
-                        "published_at": entry.published if hasattr(entry, 'published') else None
+                        "published_at": pub_date
                     })
         except Exception as e:
             print(f"Error parsing feed {feed_info['name']}: {e}")
