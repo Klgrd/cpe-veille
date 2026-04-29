@@ -68,12 +68,12 @@ export function PostFeed() {
   if (!loading && posts.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center py-24 text-center px-4">
-        <div className="w-16 h-16 rounded-2xl bg-slate-800 flex items-center justify-center mb-4">
-          <Newspaper size={28} className="text-slate-500" />
+        <div className="w-16 h-16 rounded-2xl bg-[var(--surface)] border border-[var(--border)] flex items-center justify-center mb-4">
+          <Newspaper size={28} className="text-[var(--text-muted)]" />
         </div>
-        <h3 className="text-lg font-semibold text-slate-300 mb-2">Aucun article pour le moment</h3>
-        <p className="text-sm text-slate-500 max-w-xs">
-          Le scraper n&apos;a pas encore détecté de nouveaux contenus liés au concours CPE. Revenez demain !
+        <h3 className="text-lg font-semibold text-[var(--text-primary)] mb-2">Aucun article pour le moment</h3>
+        <p className="text-sm text-[var(--text-muted)] max-w-sm">
+          Le scraper n&apos;a pas encore d&eacute;tect&eacute; de nouveaux contenus li&eacute;s au concours CPE. Revenez demain&nbsp;!
         </p>
       </div>
     );
@@ -103,7 +103,7 @@ export function PostFeed() {
       </div>
 
       {!hasMore && posts.length > 0 && (
-        <p className="text-center text-slate-600 text-sm py-6">
+        <p className="text-center text-[var(--text-muted)] text-sm py-6">
           — Vous avez tout vu —
         </p>
       )}
