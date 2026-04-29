@@ -22,7 +22,7 @@ export function BottomNav() {
   });
 
   return (
-    <nav className="sm:hidden fixed bottom-0 left-0 right-0 z-50 bg-black/40 backdrop-blur-xl border-t border-[var(--border)] safe-area-pb">
+    <nav className="sm:hidden fixed bottom-6 left-1/2 -translate-x-1/2 z-50 w-[90%] max-w-sm rounded-full bg-[var(--surface)] backdrop-blur-xl border border-[var(--border)] shadow-lg safe-area-pb">
       <div className="flex items-center justify-around h-16 px-2">
         {visibleLinks.map(({ href, icon: Icon, label }) => {
           const active = pathname === href;
@@ -31,12 +31,12 @@ export function BottomNav() {
               key={href}
               href={href}
               className={`flex flex-col items-center justify-center gap-1 flex-1 h-full transition-all duration-200 ${
-                active ? 'text-indigo-400' : 'text-slate-500 hover:text-slate-300'
+                active ? 'text-black dark:text-[#a1ff00]' : 'text-neutral-500 hover:text-neutral-900 dark:hover:text-white'
               }`}
             >
               <div
-                className={`p-1.5 rounded-xl transition-all duration-200 ${
-                  active ? 'bg-indigo-500/15' : ''
+                className={`p-2 rounded-full transition-all duration-200 ${
+                  active ? 'bg-[#a1ff00]/10 dark:bg-[#a1ff00]/15' : ''
                 }`}
               >
                 <Icon size={20} strokeWidth={active ? 2.5 : 1.8} />

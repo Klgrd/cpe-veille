@@ -54,12 +54,12 @@ export function AuthForm({ view }: AuthFormProps) {
   };
 
   return (
-    <div className="w-full max-w-md mx-auto p-6 bg-[#0a0a0a] border border-[#262626] rounded-xl shadow-xl backdrop-blur-sm animate-fade-in-up">
+    <div className="w-full max-w-md mx-auto p-8 bg-[var(--surface)] border border-[var(--border)] rounded-[2rem] shadow-xl backdrop-blur-xl animate-fade-in-up">
       <div className="text-center mb-8">
-        <h2 className="text-2xl font-bold text-white mb-2">
+        <h2 className="text-3xl font-extrabold text-[var(--text-primary)] mb-2 tracking-tight">
           {view === 'login' ? 'Bon retour !' : 'Créer un compte'}
         </h2>
-        <p className="text-sm text-slate-400">
+        <p className="text-sm text-[var(--text-secondary)]">
           {view === 'login' 
             ? 'Connectez-vous pour accéder à vos favoris.' 
             : 'Rejoignez-nous pour sauvegarder vos articles.'}
@@ -73,25 +73,25 @@ export function AuthForm({ view }: AuthFormProps) {
           </div>
         )}
 
-        <div className="space-y-1">
-          <label className="text-xs font-medium text-slate-400 ml-1">Email</label>
+        <div className="space-y-1.5">
+          <label className="text-xs font-semibold text-[var(--text-secondary)] ml-2 uppercase tracking-wider">Email</label>
           <div className="relative">
-            <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" size={18} />
+            <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-[var(--text-muted)]" size={18} />
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
               placeholder="votre@email.com"
-              className="w-full bg-[#171717] border border-[#262626] rounded-xl py-2.5 pl-10 pr-4 text-sm text-white placeholder-[#525252] focus:outline-none focus:border-white focus:ring-1 focus:ring-white transition-all"
+              className="w-full bg-black/5 dark:bg-white/5 border border-[var(--border)] rounded-full py-3.5 pl-12 pr-4 text-sm text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:outline-none focus:border-[var(--text-secondary)] transition-all"
             />
           </div>
         </div>
 
-        <div className="space-y-1">
-          <label className="text-xs font-medium text-slate-400 ml-1">Mot de passe</label>
+        <div className="space-y-1.5">
+          <label className="text-xs font-semibold text-[var(--text-secondary)] ml-2 uppercase tracking-wider">Mot de passe</label>
           <div className="relative">
-            <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" size={18} />
+            <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-[var(--text-muted)]" size={18} />
             <input
               type="password"
               value={password}
@@ -99,7 +99,7 @@ export function AuthForm({ view }: AuthFormProps) {
               required
               placeholder="••••••••"
               minLength={6}
-              className="w-full bg-slate-950 border border-slate-800 rounded-xl py-2.5 pl-10 pr-4 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all"
+              className="w-full bg-black/5 dark:bg-white/5 border border-[var(--border)] rounded-full py-3.5 pl-12 pr-4 text-sm text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:outline-none focus:border-[var(--text-secondary)] transition-all"
             />
           </div>
         </div>
@@ -107,26 +107,26 @@ export function AuthForm({ view }: AuthFormProps) {
         <button
           type="submit"
           disabled={loading}
-          className="w-full flex items-center justify-center gap-2 py-2.5 bg-[#171717] hover:bg-[#262626] border border-[#262626] active:scale-[0.98] text-white text-sm font-semibold rounded-xl transition-all disabled:opacity-50 disabled:pointer-events-none mt-6"
+          className="w-full flex items-center justify-center gap-2 py-3.5 bg-gradient-to-r from-[#eaff66] to-[#a1ff00] hover:opacity-90 active:scale-[0.98] text-black text-sm font-bold rounded-full transition-all disabled:opacity-50 disabled:pointer-events-none mt-8 shadow-[0_0_20px_rgba(161,255,0,0.3)]"
         >
           {loading && <Loader2 size={16} className="animate-spin" />}
           {view === 'login' ? 'Se connecter' : "S'inscrire"}
         </button>
       </form>
 
-      <div className="relative my-6">
+      <div className="relative my-8">
         <div className="absolute inset-0 flex items-center">
-          <div className="w-full border-t border-[#262626]"></div>
+          <div className="w-full border-t border-[var(--border)]"></div>
         </div>
         <div className="relative flex justify-center text-xs">
-          <span className="bg-[#0a0a0a] px-2 text-[#a3a3a3]">Ou continuer avec</span>
+          <span className="bg-[var(--background)] px-4 rounded-full text-[var(--text-muted)] font-medium">Ou continuer avec</span>
         </div>
       </div>
 
       <button
         onClick={handleGoogleLogin}
         disabled={loading}
-        className="w-full flex items-center justify-center gap-2 py-2.5 bg-white hover:bg-neutral-200 active:scale-[0.98] text-black text-sm font-semibold rounded-xl transition-all disabled:opacity-50 disabled:pointer-events-none shadow-sm"
+        className="w-full flex items-center justify-center gap-2 py-3.5 bg-white dark:bg-neutral-800 hover:bg-neutral-100 dark:hover:bg-neutral-700 active:scale-[0.98] text-black dark:text-white text-sm font-bold rounded-full transition-all disabled:opacity-50 disabled:pointer-events-none shadow-sm border border-neutral-200 dark:border-neutral-700"
       >
         <svg className="w-5 h-5" viewBox="0 0 24 24">
           <path
@@ -149,18 +149,18 @@ export function AuthForm({ view }: AuthFormProps) {
         Google
       </button>
 
-      <div className="mt-6 text-center text-sm text-slate-400">
+      <div className="mt-8 text-center text-sm text-[var(--text-muted)]">
         {view === 'login' ? (
           <p>
             Pas encore de compte ?{' '}
-            <Link href="/auth/register" className="text-white hover:text-[#d4d4d4] underline underline-offset-4 font-medium">
+            <Link href="/auth/register" className="text-[var(--text-primary)] hover:text-[#a1ff00] font-bold transition-colors">
               S'inscrire
             </Link>
           </p>
         ) : (
           <p>
             Déjà un compte ?{' '}
-            <Link href="/auth/login" className="text-white hover:text-[#d4d4d4] underline underline-offset-4 font-medium">
+            <Link href="/auth/login" className="text-[var(--text-primary)] hover:text-[#a1ff00] font-bold transition-colors">
               Se connecter
             </Link>
           </p>

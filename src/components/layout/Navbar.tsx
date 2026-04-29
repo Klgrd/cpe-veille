@@ -2,13 +2,21 @@
 
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { Newspaper, Bookmark, LogIn, LogOut, User } from 'lucide-react';
+import { LogOut, User, Sun, Moon } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
+import { useTheme } from 'next-themes';
+import { useEffect, useState } from 'react';
 
 export function Navbar() {
   const { user, loading, signOut } = useAuth();
   const pathname = usePathname();
   const router = useRouter();
+  const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const handleSignOut = async () => {
     await signOut();
@@ -17,75 +25,81 @@ export function Navbar() {
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 border-b border-[var(--border)] bg-black/40 backdrop-blur-xl">
-      <div className="max-w-2xl mx-auto px-4 h-14 flex items-center justify-between">
-        {/* Logo */}
-        <Link href="/" className="flex items-center gap-2 group">
-          <div className="w-8 h-8 rounded bg-white flex items-center justify-center transition-all duration-300">
-            <span className="text-black text-sm font-bold">C</span>
-          </div>
-          <span className="font-bold text-white hidden sm:block">
-            CPE Veille
-          </span>
-        </Link>
+    <header className="fixed top-0 left-0 right-0 z-50 bg-transparent">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4">
+        <div className="flex items-center justify-between h-16 rounded-full bg-[var(--surface)] backdrop-blur-xl border border-[var(--border)] px-6 shadow-sm">
 
-        {/* Nav links – desktop */}
-        <nav className="hidden sm:flex items-center gap-1">
-          <Link
-            href="/"
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 ${
-              pathname === '/'
-                ? 'bg-neutral-900 text-white'
-                : 'text-neutral-400 hover:text-white'
-            }`}
-          >
-            <Newspaper size={15} />
-            Feed
+          {/* Logo */}
+          <Link href="/" className="flex items-center gap-2 group">
+            <span className="font-bold text-lg tracking-tight">CPE Veille</span>
           </Link>
-          {user && (
+
+          {/* Nav links – desktop */}
+          <nav className="hidden sm:flex items-center gap-1">
             <Link
-              href="/bookmarks"
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 ${
-                pathname === '/bookmarks'
-                  ? 'bg-neutral-900 text-white'
-                  : 'text-neutral-400 hover:text-white'
+              href="/"
+              className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
+                pathname === '/'
+                  ? 'bg-neutral-800/10 dark:bg-white/10 text-neutral-900 dark:text-white'
+                  : 'text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white'
               }`}
             >
-              <Bookmark size={15} />
-              Favoris
+              Feed
             </Link>
-          )}
-        </nav>
+            {user && (
+              <Link
+                href="/bookmarks"
+                className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
+                  pathname === '/bookmarks'
+                    ? 'bg-neutral-800/10 dark:bg-white/10 text-neutral-900 dark:text-white'
+                    : 'text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white'
+                }`}
+              >
+                Favoris
+              </Link>
+            )}
+          </nav>
 
-        {/* Auth */}
-        <div className="flex items-center gap-2">
-          {!loading && (
-            <>
-              {user ? (
-                <div className="flex items-center gap-2">
-                  <div className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 text-neutral-400 text-xs">
-                    <User size={13} />
-                    <span className="max-w-[120px] truncate">{user.email}</span>
+          {/* Actions & Auth */}
+          <div className="flex items-center gap-3">
+            {mounted && (
+              <button
+                onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+                className="p-2 rounded-full hover:bg-neutral-200 dark:hover:bg-white/10 transition-colors"
+                aria-label="Toggle theme"
+              >
+                {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
+              </button>
+            )}
+
+            {!loading && (
+              <>
+                {user ? (
+                  <div className="flex items-center gap-2">
+                    <div className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 text-neutral-500 dark:text-neutral-400 text-xs">
+                      <User size={14} />
+                      <span className="max-w-[120px] truncate">{user.email}</span>
+                    </div>
+                    <button
+                      onClick={handleSignOut}
+                      className="flex items-center gap-1.5 px-4 py-2 rounded-full text-sm border border-[var(--border)] hover:bg-neutral-200 dark:hover:bg-white/10 transition-all duration-200"
+                    >
+                      <span className="hidden sm:block">Déconnexion</span>
+                      <LogOut size={14} className="sm:hidden" />
+                    </button>
                   </div>
-                  <button
-                    onClick={handleSignOut}
-                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm text-neutral-400 hover:text-white transition-all duration-200"
+                ) : (
+                  <Link
+                    href="/auth/login"
+                    className="flex items-center gap-1.5 px-5 py-2 rounded-full bg-transparent border border-[var(--border)] hover:bg-neutral-200 dark:hover:bg-white/10 text-sm font-medium transition-all duration-200"
                   >
-                    <LogOut size={15} />
-                    <span className="hidden sm:block">Déconnexion</span>
-                  </button>
-                </div>
-              ) : (
-                <Link
-                  href="/auth/login"
-                  className="flex items-center gap-1.5 px-4 py-1.5 rounded-lg bg-white hover:bg-neutral-200 text-black text-sm font-medium transition-all duration-200"
-                >
-                  <LogIn size={15} />
-                  Connexion
-                </Link>
-              )}
-            </>
-          )}
+                    Connexion
+                  </Link>
+                )}
+              </>
+            )}
+          </div>
+
         </div>
       </div>
     </header>

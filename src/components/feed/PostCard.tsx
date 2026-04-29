@@ -29,11 +29,11 @@ export function PostCard({ post, isBookmarked, onBookmarkToggle, userId }: PostC
       {/* Header */}
       <div className="flex items-start justify-between gap-3 mb-3">
         <div className="flex items-center gap-3 min-w-0">
-          <div className="w-9 h-9 rounded bg-[#171717] border border-[#262626] flex items-center justify-center text-sm shrink-0">
+          <div className="w-9 h-9 rounded-full bg-[var(--surface)] border border-[var(--border)] flex items-center justify-center text-sm shrink-0">
             {icon}
           </div>
           <div className="min-w-0">
-            <p className="text-sm font-medium text-[#d4d4d4] truncate">
+            <p className="text-sm font-medium text-[var(--text-secondary)] truncate">
               {post.source_name ?? 'Veille CPE'}
             </p>
             <time
@@ -48,13 +48,13 @@ export function PostCard({ post, isBookmarked, onBookmarkToggle, userId }: PostC
 
       {/* Title */}
       <Link href={`/post/${post.id}`}>
-        <h2 className="text-base font-semibold text-white mb-2 leading-snug hover:text-[#a3a3a3] transition-colors duration-200 cursor-pointer line-clamp-2">
+        <h2 className="text-lg font-bold text-[var(--text-primary)] mb-2 leading-snug hover:text-[var(--text-secondary)] transition-colors duration-200 cursor-pointer line-clamp-2">
           {post.title}
         </h2>
       </Link>
 
       {/* Description */}
-      <p className="text-sm text-[#a3a3a3] leading-relaxed mb-4 line-clamp-3">
+      <p className="text-sm text-[var(--text-muted)] leading-relaxed mb-4 line-clamp-3">
         {post.description}
       </p>
 
@@ -76,7 +76,7 @@ export function PostCard({ post, isBookmarked, onBookmarkToggle, userId }: PostC
               href={url}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 text-xs text-[#a3a3a3] hover:text-white underline-offset-2 hover:underline transition-colors duration-200"
+              className="inline-flex items-center gap-1 text-xs text-[var(--text-muted)] hover:text-[var(--text-primary)] underline-offset-2 hover:underline transition-colors duration-200"
             >
               <ExternalLink size={12} />
               Source {post.source_url.length > 1 ? i + 1 : ''}
@@ -86,7 +86,7 @@ export function PostCard({ post, isBookmarked, onBookmarkToggle, userId }: PostC
       )}
 
       {/* Divider */}
-      <div className="h-px bg-[#262626] mb-3" />
+      <div className="h-px bg-[var(--border)] mb-3" />
 
       {/* Actions */}
       <div className="flex items-center gap-4">
@@ -100,15 +100,15 @@ export function PostCard({ post, isBookmarked, onBookmarkToggle, userId }: PostC
           }}
           className={`flex items-center gap-1.5 text-sm transition-all duration-200 group/bm ${
             isBookmarked
-              ? 'text-white'
-              : 'text-[#a3a3a3] hover:text-white'
+              ? 'text-[#a1ff00] dark:text-[#a1ff00]'
+              : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
           }`}
           aria-label={isBookmarked ? 'Retirer des favoris' : 'Sauvegarder dans les favoris'}
         >
           <Bookmark
             size={16}
             className={`transition-all duration-200 group-hover/bm:scale-110 ${
-              isBookmarked ? 'fill-white' : ''
+              isBookmarked ? 'fill-[#a1ff00]' : ''
             }`}
           />
           <span>{isBookmarked ? 'Sauvegardé' : 'Sauvegarder'}</span>
