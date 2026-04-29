@@ -1,43 +1,43 @@
 KEYWORDS = [
     # Le métier et les acteurs
     "conseiller principal d'éducation", "CPE", "vie scolaire", "chef d'établissement", 
-    "équipe éducative", "AESH", "délégué",
+    "équipe éducative", "equipe educative", "AESH", "délégué", "delegue",
     
     # Le cadre
-    "lycée", "collège", "secondaire", "éducation nationale", "EPLE",
+    "lycée", "lycee", "collège", "college", "secondaire", "éducation nationale", "education nationale", "EPLE",
     
     # Problématiques et thèmes
-    "absentéisme", "décrochage", "harcèlement", "cyberharcèlement", "exclusion", 
-    "sanctions", "handicape", "inclusion", "psychologie de l'adolescent", "psychologie de l'enfant",
-    "autorité éducative", "bien être de l'enfant", "santé mental de l'ado", "santé mental de l'enfant",
-    "compétences psychosociales", "éducation à la citoyenneté", "éducation moral et civique",
-    "éducation développement durable", "sociologie de l'enfant", "sociologie de l'ado",
-    "développement de l'enfant", "développement de l'ado", "éducation aux média et à l'information",
-    "numérique à l'école", "climat scolaire", "éducation prioritaire", "égalité fille/garçon à l'école",
-    "carte scolaire", "addiction à l'adolescence", "inégalité", "laïcité", "internat", 
-    "élèves allophone", "relation parents école", "médiation entre pairs", "surveillance scolaire",
-    "droit à l'éducation", "valeurs de la république", "politique éducative", "suivi éducatif",
-    "organisation des EPLE", "structure des EPLE", "apprentissage", "accompagnement", "projet d'établissement", 
-    "vie scolaire", "zone d'éducation prioritaire", "quartier prioritaire de la politique de la ville", "réseaux ambition réussite",
-    "médiation", "parcours de formation", "réseaux de réussite scolaire", "contrat d'objectifs scolaire", "outil pédagogique", "outil éducatif",
+    "absentéisme", "absenteisme", "décrochage", "decrochage", "harcèlement", "harcelement", 
+    "cyberharcèlement", "cyberharcelement", "exclusion", "sanctions", "handicape", "inclusion", 
+    "psychologie", "autorité éducative", "autorite educative", "bien être", "bien etre", 
+    "santé mental", "sante mental", "compétences psychosociales", "competences psychosociales",
+    "citoyenneté", "citoyennete", "éducation moral", "education moral", "développement durable", 
+    "developpement durable", "sociologie", "numérique", "numerique", "climat scolaire", 
+    "prioritaire", "égalité", "egalite", "carte scolaire", "addiction", "inégalité", "inegalite", 
+    "laïcité", "laicite", "internat", "allophone", "relation parents", "médiation", "mediation", 
+    "surveillance", "droit à l'éducation", "droit a l'education", "valeurs de la république", 
+    "valeurs de la republique", "politique éducative", "politique educative", "suivi éducatif", 
+    "suivi educatif", "organisation des EPLE", "structure des EPLE", "apprentissage", 
+    "accompagnement", "projet d'établissement", "projet d'etablissement",
     
     # Officiel / Légal
-    "règlement intérieur", "décret", "circulaire", "arrêté", "lois", "note de service", 
-    "recommandation officielle",
+    "règlement intérieur", "reglement interieur", "décret", "decret", "circulaire", "arrêté", "arrete", 
+    "lois", "note de service", "recommandation",
     
     # Droits, Devoirs et Conditions de travail (Fonction Publique)
-    "fonction publique", "statut", "obligation de neutralité", "neutralit", "devoir de réserve", 
-    "droits et devoirs", "salaire", "rémunération", "grève", "syndicat", 
-    "mouvement social", "conditions de travail",
+    "fonction publique", "statut", "neutralité", "neutralite", "neutralit", "réserve", "reserve", 
+    "droits et devoirs", "salaire", "rémunération", "remuneration", "remunerat", "grève", "greve", 
+    "syndicat", "mouvement social", "conditions de travail",
     
     # Pédagogie & Examens
-    "pédagogie", "baccalauréat", "brevet", "orientation", "orientation scolaire", "parcoursup",
-    "réforme du bac", "certification", "pix", "évaluation", "niveau scolaire", "concours",
+    "pédagogie", "pedagogie", "pedagogiq", "baccalauréat", "baccalaureat", "brevet", "orientation", 
+    "parcoursup", "réforme", "reforme", "certification", "pix", "évaluation", "evaluation", 
+    "niveau scolaire", "concours",
     
     # Grands Enjeux, Débats et Acteurs de l'éducation
     "école", "ecole", "élève", "eleve", "enseignant", "professeur", "enseignement", 
-    "éducation", "education", "système éducatif", "intelligence artificielle", "IA", 
-    "TDAH", "TSA", "troubles dys", "neuroatypique", "débat"
+    "éducation", "education", "système éducatif", "systeme educatif", "intelligence artificielle", 
+    "IA", "TDAH", "TSA", "troubles dys", "neuroatypique", "débat", "debat"
 ]
 
 def is_relevant(title: str, description: str) -> bool:

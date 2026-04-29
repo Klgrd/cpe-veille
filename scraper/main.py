@@ -27,6 +27,7 @@ def main():
     new_posts_count = 0
     added_items = []
     ignored_items = []
+    failed_items = []
     skipped_existing = 0
     faits_divers_count = 0
     
@@ -80,6 +81,9 @@ def main():
             new_posts_count += 1
             added_items.append(item)
             existing_ids.add(item["source_id"]) # Prevent duplicate in same run
+        else:
+            print(f"FAILED to insert: {item['title']}")
+            failed_items.append(item)
             
     print(f"\nScraping complete. Added {new_posts_count} new posts.")
 
@@ -96,9 +100,12 @@ def main():
                 f.write(f"- **Articles ignorés (déjà en base) :** {skipped_existing}\n")
                 
                 if new_posts_count == 0:
-                    f.write("- **Résultat :** 🛑 Aucun nouvel article pertinent détecté aujourd'hui.\n\n")
+                    f.write("- **Résultat :** 🛑 Aucun nouvel article pertinent ajouté aujourd'hui.\n\n")
                 else:
                     f.write(f"- **Résultat :** ✅ **{new_posts_count}** nouveaux articles ajoutés.\n\n")
+                
+                if failed_items:
+                    f.write(f"- **⚠️ Erreurs :** {len(failed_items)} articles n'ont pas pu être insérés en base.\n\n")
                     
                 if added_items:
                     f.write("#### ✨ Nouveaux articles publiés :\n")
@@ -106,6 +113,12 @@ def main():
                         f.write(f"- [{it['title']}]({it['link']})\n")
                     f.write("\n")
                     
+                if failed_items:
+                    f.write("#### ❌ Articles en erreur (Échec insertion) :\n")
+                    for it in failed_items:
+                        f.write(f"- {it['title']} ({it['source_name']})\n")
+                    f.write("\n")
+
                 if ignored_items:
                     f.write("<details><summary>🔍 Voir les articles analysés mais ignorés (hors-sujet)</summary>\n\n")
                     for it in ignored_items:

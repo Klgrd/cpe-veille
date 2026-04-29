@@ -16,6 +16,8 @@ def get_headers() -> dict:
 
 def get_supabase_url() -> str:
     url = os.environ.get("SUPABASE_URL")
+    if not url:
+        return ""
     # Ensure no trailing slash
     return url.rstrip('/')
 
