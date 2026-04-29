@@ -58,3 +58,50 @@ CREATE POLICY "Users can insert their own bookmarks."
 CREATE POLICY "Users can delete their own bookmarks." 
   ON bookmarks FOR DELETE 
   USING ( auth.uid() = user_id );
+
+-- ============================================================
+-- Table: user_preferences
+-- ============================================================
+CREATE TABLE user_preferences (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE UNIQUE,
+  email_notifications BOOLEAN NOT NULL DEFAULT FALSE,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+CREATE INDEX idx_user_preferences_user_id ON user_preferences(user_id);
+
+ALTER TABLE user_preferences ENABLE ROW LEVEL SECURITY;
+
+-- Users can read their own preferences
+CREATE POLICY "Users can view their own preferences."
+  ON user_preferences FOR SELECT
+  USING ( auth.uid() = user_id );
+
+-- Users can insert their own preferences
+CREATE POLICY "Users can insert their own preferences."
+  ON user_preferences FOR INSERT
+  WITH CHECK ( auth.uid() = user_id );
+
+-- Users can update their own preferences
+CREATE POLICY "Users can update their own preferences."
+  ON user_preferences FOR UPDATE
+  USING ( auth.uid() = user_id );
+
+-- Service role can read all preferences (for the scraper to fetch subscribed emails)
+CREATE POLICY "Service role can read all preferences."
+  ON user_preferences FOR SELECT
+  USING ( auth.role() = 'service_role' );
+
+-- ============================================================
+-- View: notification_subscribers
+-- Returns emails of users who opted in for email notifications.
+-- Only accessible via service_role (used by the scraper).
+-- ============================================================
+CREATE VIEW notification_subscribers AS
+  SELECT au.email, up.user_id
+  FROM user_preferences up
+  JOIN auth.users au ON au.id = up.user_id
+  WHERE up.email_notifications = TRUE;
+

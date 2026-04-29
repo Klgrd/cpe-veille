@@ -4,6 +4,7 @@ from feeds import fetch_and_parse_feeds
 from keywords import is_relevant
 from llm import generate_summary_and_tags
 from supabase_client import get_existing_source_ids, insert_post
+from notify import send_notification_emails
 
 def main():
     # Load env vars for local development
@@ -66,6 +67,10 @@ def main():
             existing_ids.add(item["source_id"]) # Prevent duplicate in same run
             
     print(f"\nScraping complete. Added {new_posts_count} new posts.")
+
+    # Send email notifications if new posts were added
+    if new_posts_count > 0:
+        send_notification_emails(added_items)
     
     # Write to GitHub Step Summary if running in GitHub Actions
     summary_file = os.environ.get("GITHUB_STEP_SUMMARY")
