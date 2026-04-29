@@ -60,6 +60,20 @@ def main():
             existing_ids.add(item["source_id"]) # Prevent duplicate in same run
             
     print(f"\nScraping complete. Added {new_posts_count} new posts.")
+    
+    # Write to GitHub Step Summary if running in GitHub Actions
+    summary_file = os.environ.get("GITHUB_STEP_SUMMARY")
+    if summary_file:
+        try:
+            with open(summary_file, "a", encoding="utf-8") as f:
+                f.write("### 🤖 Rapport de Scraping CPE Veille\n\n")
+                f.write(f"- **Articles analysés :** {len(items)}\n")
+                if new_posts_count == 0:
+                    f.write("- **Résultat :** 🛑 Aucun nouvel article pertinent détecté aujourd'hui.\n")
+                else:
+                    f.write(f"- **Résultat :** ✅ **{new_posts_count}** nouveaux articles ajoutés.\n")
+        except Exception as e:
+            print(f"Could not write to GitHub Step Summary: {e}")
 
 if __name__ == "__main__":
     main()
