@@ -97,11 +97,21 @@ CREATE POLICY "Service role can read all preferences."
 -- ============================================================
 -- View: notification_subscribers
 -- Returns emails of users who opted in for email notifications.
--- Only accessible via service_role (used by the scraper).
+-- Secured with security_invoker and restricted to service_role.
 -- ============================================================
-CREATE VIEW notification_subscribers AS
+CREATE VIEW notification_subscribers 
+WITH (security_invoker = true)
+AS
   SELECT au.email, up.user_id
   FROM user_preferences up
   JOIN auth.users au ON au.id = up.user_id
   WHERE up.email_notifications = TRUE;
+
+-- Revoke public access to protect user emails
+REVOKE ALL ON notification_subscribers FROM anon;
+REVOKE ALL ON notification_subscribers FROM authenticated;
+
+-- Only the service role (used by the scraper) can access this view
+GRANT SELECT ON notification_subscribers TO service_role;
+
 
